@@ -139,7 +139,8 @@ asyncio.run( custom_site() )
 --><script type="application/javascript">
 // END BLOCK
 
-
+// Force device pixel ratio to 1 — pygbag SDL2 backend doesn't support Retina (ratio=2)
+Object.defineProperty(window, 'devicePixelRatio', { get: () => 1 });
 
 // this dict is available under PyConfig.config from __main__
 
