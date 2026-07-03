@@ -149,7 +149,7 @@ config = {
     _sdl2 : "canvas",
     user_canvas : 0,
     user_canvas_managed : 0,
-    gui_divider : 1,
+    gui_divider : 2,
     ume_block : 1,
     can_close : 0,
     archive : "oni-rpg",
@@ -283,8 +283,8 @@ function show_infobox() {
            border: 1px solid black;
         }
 
-        /* hide all non-game chrome — terminal, progress bar, debug panels */
-        #transfer, #crt, #pyconsole, #html, #dlg { display: none !important; }
+        /* hide terminal and debug panels; keep #transfer progress bar and #infobox visible during loading */
+        #crt, #pyconsole, #html, #dlg { display: none !important; }
     </style>
 
     <script>
