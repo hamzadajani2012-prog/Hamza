@@ -206,13 +206,13 @@ function show_infobox() {
         }
 
         #infobox {
-            position: fixed;
+            position: fixed; /* center relative to viewport */
             background: green;
             color: blue;
             font-weight: bold;
             padding: 12px 24px;
+ /*           display: none; */
             z-index: 999999;
-            pointer-events: none;
         }
         div.emscripten { text-align: center; }
         div.emscripten_border { border: 1px solid black; }
@@ -398,10 +398,6 @@ frameborder="1"
         box.hidden =  debug_hidden
 
         show_infobox()
-
-        setTimeout(() => canvas.focus(), 500);
-        // Hide infobox after game loads (main.py never exits so Python never hides it)
-        setTimeout(() => { infobox.style.display = 'none'; canvas.focus(); }, 10000);
     }
 
     function custom_prerun(){
