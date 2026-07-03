@@ -292,6 +292,17 @@ function show_infobox() {
 
     <script src="https://pygame-web.github.io/cdn/0.9.3//browserfs.min.js"></script>
 
+    <script>
+    // Show any JS crash on-screen so we can see it without DevTools
+    window.onerror = function(msg, src, line) {
+        var d = document.getElementById('oni-err') || document.createElement('div');
+        d.id = 'oni-err';
+        d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:red;color:#fff;font:14px monospace;padding:8px;z-index:9999999;';
+        d.textContent = 'ERROR: ' + msg + ' (line ' + line + ')';
+        document.body && document.body.appendChild(d);
+    };
+    </script>
+
 </head>
 
 <body>
