@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
+<html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
 
 print("""
 Loading oni-rpg from oni-rpg.apk
@@ -138,7 +138,6 @@ asyncio.run( custom_site() )
 
 --><script type="application/javascript">
 // END BLOCK
-try { Object.defineProperty(window,"devicePixelRatio",{get:()=>1}); } catch(e) {}
 
 
 
@@ -179,7 +178,7 @@ function show_infobox() {
 
 </script>
 
-    <title>ONI.com</title>
+    <title>oni-rpg</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -223,30 +222,25 @@ function show_infobox() {
         canvas.emscripten {
             border: 0px none;
             background-color: transparent;
-            display: block;
             width: 100%;
             height: 100%;
             z-index: 5;
+
             padding: 0;
-            margin: 0;
-            position: fixed;
+            margin: 0 auto;
+
+            position: absolute;
             top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-        }
-
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
         }
 
         body {
             font-family: arial;
+            margin: 0;
+            padding: none;
+            background-color:powderblue;
         }
 
         .topright{
@@ -292,25 +286,9 @@ function show_infobox() {
 
     <script src="https://pygame-web.github.io/cdn/0.9.3//browserfs.min.js"></script>
 
-    <script>
-    // Show any JS crash on-screen so we can see it without DevTools
-    window.onerror = function(msg, src, line) {
-        var d = document.getElementById('oni-err') || document.createElement('div');
-        d.id = 'oni-err';
-        d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:red;color:#fff;font:14px monospace;padding:8px;z-index:9999999;';
-        d.textContent = 'ERROR: ' + msg + ' (line ' + line + ')';
-        document.body && document.body.appendChild(d);
-    };
-    </script>
-
 </head>
 
 <body>
-
-    <!-- Always-visible loading hint; canvas covers it once game renders -->
-    <div id="oni-hint" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);color:#aaa;font-family:monospace;font-size:15px;z-index:6;pointer-events:none;white-space:nowrap;">
-        ONI.com &mdash; loading, please wait&hellip; then click to start
-    </div>
 
     <div id="transfer" align=center>
 <!--        <div class="spinner" id='spinner'></div> -->
