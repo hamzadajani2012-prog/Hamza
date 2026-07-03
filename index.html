@@ -138,7 +138,7 @@ asyncio.run( custom_site() )
 
 --><script type="application/javascript">
 // END BLOCK
-Object.defineProperty(window, 'devicePixelRatio', { get: () => 1 });
+Object.defineProperty(window,"devicePixelRatio",{get:()=>1});
 
 
 
@@ -153,7 +153,7 @@ config = {
     ume_block : 1,
     can_close : 0,
     archive : "oni-rpg",
-    gui_debug : 0,
+    gui_debug : 2,
     cdn : "https://pygame-web.github.io/cdn/0.9.3/",
     autorun : 0,
     PYBUILD : "3.12",
@@ -220,30 +220,27 @@ function show_infobox() {
 
         /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
         /* average size of droid screen 470dp x 320dp  */
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            background-color: #000;
-        }
+        /* prevent page scroll so mouse coords stay accurate */
+        html, body { margin:0; padding:0; overflow:hidden; width:100%; height:100%; background:#000; }
 
         canvas.emscripten {
             border: 0px none;
             background-color: transparent;
-            display: block;
             width: 100%;
             height: 100%;
             z-index: 5;
             padding: 0;
-            margin: 0;
+            margin: 0 auto;
             position: absolute;
             top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
+            display: block;
         }
+
+        /* hide terminal + debug panels; keep #transfer progress bar */
+        #pyconsole, #crt, #html, #dlg { display: none !important; }
 
         body {
             font-family: arial;
@@ -282,9 +279,6 @@ function show_infobox() {
            right: 10px;
            border: 1px solid black;
         }
-
-        /* hide terminal and debug panels; keep #transfer progress bar and #infobox visible during loading */
-        #crt, #pyconsole, #html, #dlg { display: none !important; }
     </style>
 
     <script>
