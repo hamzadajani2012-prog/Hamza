@@ -282,6 +282,9 @@ function show_infobox() {
            right: 10px;
            border: 1px solid black;
         }
+
+        /* hide all non-game chrome — terminal, progress bar, debug panels */
+        #transfer, #crt, #pyconsole, #html, #dlg { display: none !important; }
     </style>
 
     <script>
@@ -381,6 +384,39 @@ frameborder="1"
     </div>
 
     <script type="application/javascript">
+
+    // Force canvas to fill the full viewport, overriding any pygbag resize.
+    (function() {
+        function fixCanvas() {
+            var c = document.getElementById('canvas');
+            if (!c) return;
+            c.style.setProperty('position', 'fixed', 'important');
+            c.style.setProperty('top', '0', 'important');
+            c.style.setProperty('left', '0', 'important');
+            c.style.setProperty('right', '0', 'important');
+            c.style.setProperty('bottom', '0', 'important');
+            c.style.setProperty('width', '100vw', 'important');
+            c.style.setProperty('height', '100vh', 'important');
+            c.style.setProperty('z-index', '9999', 'important');
+            c.style.setProperty('margin', '0', 'important');
+            c.style.setProperty('padding', '0', 'important');
+        }
+        // Intercept window_resize before pygbag defines it
+        var _stored = null;
+        Object.defineProperty(window, 'window_resize', {
+            configurable: true,
+            set: function(fn) { _stored = fn; },
+            get: function() {
+                return function() {
+                    if (_stored) _stored.apply(this, arguments);
+                    fixCanvas();
+                };
+            }
+        });
+        // Also poll for 20 seconds in case pygbag bypasses the property trap
+        var t = setInterval(fixCanvas, 500);
+        setTimeout(function() { clearInterval(t); }, 20000);
+    })();
 
     globalThis.__canvas_resized = (self, ecw, ech) => {
         console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
