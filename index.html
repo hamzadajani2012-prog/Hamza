@@ -1,4 +1,4 @@
-<html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
+<!DOCTYPE html><html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
 
 print("""
 Loading oni-rpg from oni-rpg.apk
@@ -138,6 +138,7 @@ asyncio.run( custom_site() )
 
 --><script type="application/javascript">
 // END BLOCK
+Object.defineProperty(window, 'devicePixelRatio', { get: () => 1 });
 
 
 
@@ -178,7 +179,7 @@ function show_infobox() {
 
 </script>
 
-    <title>oni-rpg</title>
+    <title>ONI.com</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,28 +220,36 @@ function show_infobox() {
 
         /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
         /* average size of droid screen 470dp x 320dp  */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+        }
+
         canvas.emscripten {
             border: 0px none;
             background-color: transparent;
+            display: block;
             width: 100%;
             height: 100%;
             z-index: 5;
-
             padding: 0;
-            margin: 0 auto;
-
-            position: absolute;
+            margin: 0;
+            position: fixed;
             top: 0;
-            bottom: 0;
             left: 0;
             right: 0;
+            bottom: 0;
         }
 
         body {
             font-family: arial;
             margin: 0;
-            padding: none;
-            background-color:powderblue;
+            padding: 0;
+            background-color: #000;
         }
 
         .topright{
