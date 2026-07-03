@@ -398,6 +398,12 @@ frameborder="1"
         box.hidden =  debug_hidden
 
         show_infobox()
+
+        // Auto-focus canvas so mouse/keyboard work without requiring a click
+        setTimeout(() => canvas.focus(), 500);
+        new MutationObserver((_, obs) => {
+            if (infobox.style.display === 'none') { canvas.focus(); obs.disconnect(); }
+        }).observe(infobox, { attributes: true, attributeFilter: ['style'] });
     }
 
     function custom_prerun(){
