@@ -401,6 +401,19 @@ frameborder="1"
         console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
     }
 
+    // Diagnostic: blue = document got click, red = canvas got click
+    document.addEventListener('mousedown', () => {
+        document.body.style.outline = '4px solid blue';
+        setTimeout(() => document.body.style.outline = '', 300);
+    });
+    // Canvas listener added after load so it exists
+    window.addEventListener('load', () => {
+        canvas.addEventListener('mousedown', () => {
+            document.body.style.outline = '4px solid red';
+            setTimeout(() => document.body.style.outline = '', 300);
+        });
+    });
+
     async function custom_onload(debug_hidden) {
         console.log(__FILE__, "custom_onload")
 
