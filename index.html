@@ -150,7 +150,7 @@ config = {
     user_canvas : 0,
     user_canvas_managed : 0,
     gui_divider : 1,
-    ume_block : 1,
+    ume_block : 0,
     can_close : 0,
     archive : "oni-rpg",
     gui_debug : 2,
@@ -160,6 +160,21 @@ config = {
     fb_ar   :  1.77,
     fb_width : "1280",
     fb_height : "720"
+}
+
+// Click-to-start overlay — gives SDL a real user gesture so mouse+keyboard bind
+function show_start_overlay() {
+    const ov = document.createElement('div');
+    ov.id = 'startov';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:2000000;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(0,0,0,0.01)';
+    ov.innerHTML = '<div style="background:green;color:white;font:bold 22px arial;padding:16px 36px;border-radius:4px">Click to Start</div>';
+    ov.addEventListener('click', function() {
+        ov.remove();
+        canvas.focus();
+        // Hide infobox after game has had time to render
+        setTimeout(() => { infobox.style.display = 'none'; }, 6000);
+    }, {once: true});
+    document.body.appendChild(ov);
 }
 
 function show_infobox() {
@@ -386,15 +401,7 @@ frameborder="1"
         console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
     }
 
-    // Debug: flash screen white for 150ms on any click so we can see if browser receives it
-    document.addEventListener('mousedown', function() {
-        document.body.style.outline = '4px solid white';
-        setTimeout(() => document.body.style.outline = '', 150);
-    });
-
     async function custom_onload(debug_hidden) {
-        // this is called before anything python is loaded
-        // make your js customization here
         console.log(__FILE__, "custom_onload")
 
         pyconsole.hidden = debug_hidden
@@ -402,6 +409,8 @@ frameborder="1"
         transfer.hidden = debug_hidden
         info.hidden = debug_hidden
         box.hidden =  debug_hidden
+
+        show_start_overlay();
 
         show_infobox()
     }
