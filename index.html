@@ -206,13 +206,13 @@ function show_infobox() {
         }
 
         #infobox {
-            position: fixed; /* center relative to viewport */
+            position: fixed;
             background: green;
             color: blue;
             font-weight: bold;
             padding: 12px 24px;
- /*           display: none; */
             z-index: 999999;
+            pointer-events: none;
         }
         div.emscripten { text-align: center; }
         div.emscripten_border { border: 1px solid black; }
