@@ -401,17 +401,19 @@ frameborder="1"
         console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
     }
 
-    // Diagnostic: blue = document got click, red = canvas got click
-    document.addEventListener('mousedown', () => {
-        document.body.style.outline = '4px solid blue';
-        setTimeout(() => document.body.style.outline = '', 300);
-    });
-    // Canvas listener added after load so it exists
-    window.addEventListener('load', () => {
-        canvas.addEventListener('mousedown', () => {
-            document.body.style.outline = '4px solid red';
-            setTimeout(() => document.body.style.outline = '', 300);
-        });
+    // Forward all mouse events to canvas so SDL receives them regardless of what element was clicked
+    ['mousedown','mouseup','mousemove'].forEach(type => {
+        document.addEventListener(type, function(e) {
+            var c = document.getElementById('canvas');
+            if (c && e.target !== c) {
+                c.dispatchEvent(new MouseEvent(type, {
+                    bubbles: false, cancelable: true,
+                    clientX: e.clientX, clientY: e.clientY,
+                    screenX: e.screenX, screenY: e.screenY,
+                    button: e.button, buttons: e.buttons
+                }));
+            }
+        }, true);
     });
 
     async function custom_onload(debug_hidden) {
